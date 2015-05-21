@@ -1,0 +1,28 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-west-1",
+      "source_ami": "ami-a10897d6",
+      "instance_type": "m3.medium",
+      "ssh_username": "ec2-user",
+      "ami_name": "docker {{timestamp}}",
+      "tags": {
+        "OS_Version": "Amazon Linux",
+        "Release": "Latest"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get update",
+        "sudo yum install -y docker",
+        "sudo service docker start",
+        "sudo usermod -aG docker ubuntu"
+      ]
+    }
+  ]
+}
