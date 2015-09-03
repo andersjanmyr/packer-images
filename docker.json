@@ -3,9 +3,10 @@
     {
       "type": "amazon-ebs",
       "region": "eu-west-1",
-      "source_ami": "ami-a10897d6",
+      "source_ami": "ami-e4d18e93",
       "instance_type": "m3.medium",
       "ssh_username": "ec2-user",
+      "user_data_file": "./user_data.sh",
       "ami_name": "docker {{timestamp}}",
       "tags": {
         "OS_Version": "Amazon Linux",
@@ -18,11 +19,14 @@
       "type": "shell",
       "inline": [
         "sleep 30",
-        "sudo apt-get update",
         "sudo yum upgrade -y",
         "sudo yum install -y docker",
+        "curl https://get.docker.com/builds/Linux/x86_64/docker-latest > /tmp/docker",
+        "sudo mv /tmp/docker /usr/bin/docker",
+        "sudo chmod a+x /usr/bin/docker",
         "sudo service docker start",
-        "sudo usermod -aG docker ec2-user"
+        "sudo usermod -aG docker ec2-user",
+        "sudo chkconfig docker on"
       ]
     }
   ]
