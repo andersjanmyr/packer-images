@@ -3,14 +3,14 @@
     {
       "type": "amazon-ebs",
       "region": "eu-west-1",
-      "source_ami": "ami-e4d18e93",
+      "source_ami": "ami-69b9941e",
       "instance_type": "m3.medium",
       "ssh_username": "ec2-user",
       "user_data_file": "./user_data.sh",
       "ami_name": "docker {{timestamp}}",
       "tags": {
         "OS_Version": "Amazon Linux",
-        "Release": "Latest"
+        "Release": "Amazon Linux AMI 2015.09"
       }
     }
   ],
