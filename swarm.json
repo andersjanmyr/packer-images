@@ -1,0 +1,50 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-west-1",
+      "source_ami": "ami-e4d18e93",
+      "instance_type": "m3.medium",
+      "ssh_username": "ec2-user",
+      "user_data_file": "./user_data.sh",
+      "ami_name": "docker {{timestamp}}",
+      "tags": {
+        "OS_Version": "Amazon Linux",
+        "Release": "Latest"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo yum upgrade -y",
+        "sudo yum install -y docker",
+        "curl https://get.docker.com/builds/Linux/x86_64/docker-latest > /tmp/docker",
+        "sudo mv /tmp/docker /usr/bin/docker",
+        "sudo chmod a+x /usr/bin/docker",
+        "sudo usermod -aG docker ec2-user"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "./docker.config",
+      "destination": "/tmp/docker.config"
+    },
+    {
+      "type": "file",
+      "source": "./certs",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo cp /tmp/docker.config /etc/sysconfig/docker",
+        "sudo cp -r /tmp/certs /etc/docker/certs",
+        "sudo service docker start",
+        "sudo chkconfig docker on"
+      ]
+    }
+  ]
+}
