@@ -41,7 +41,8 @@
       "type": "shell",
       "inline": [
         "sudo cp /tmp/docker.config /etc/sysconfig/docker",
-        "sudo cp -r /tmp/certs /etc/docker/certs",
+        "sudo mkdir -p /etc/docker",
+        "sudo cp -r /tmp/certs /etc/docker/",
         "sudo service docker start",
         "sudo chkconfig docker on"
       ]
