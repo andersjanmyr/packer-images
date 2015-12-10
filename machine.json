@@ -1,0 +1,27 @@
+{
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "region": "eu-west-1",
+      "source_ami": "ami-47a23a30",
+      "instance_type": "m3.medium",
+      "ssh_username": "ubuntu",
+      "ami_name": "docker-machine {{timestamp}}",
+      "tags": {
+        "OS_Version": "Ubuntu 14.04 LTS",
+        "Release": "Ubuntu 14.04 LTS"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get update -y",
+        "curl -sSL https://get.docker.com | sh",
+        "sudo usermod -aG docker ubuntu"
+      ]
+    }
+  ]
+}
