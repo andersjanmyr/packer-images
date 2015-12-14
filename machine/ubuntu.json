@@ -1,0 +1,53 @@
+{
+  "builders": [
+    {
+     "type": "amazon-ebs",
+      "region": "eu-west-1",
+      "source_ami": "ami-47a23a30",
+      "instance_type": "m3.medium",
+      "ssh_username": "ubuntu",
+      "ami_name": "docker ubuntu {{timestamp}}",
+      "tags": {
+        "OS_Version": "Ubuntu 14.04 LTS",
+        "Release": "Ubuntu 14.04 LTS"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sleep 30",
+        "sudo apt-get update -y",
+        "curl -sSL https://get.docker.com | sh",
+        "sudo usermod -aG docker ubuntu"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "certs",
+      "destination": "/tmp"
+    },
+    {
+      "type": "file",
+      "source": "./ubuntu.docker.config",
+      "destination": "/tmp/docker.config"
+    },
+    {
+      "type": "file",
+      "source": "generate-server-keys.sh",
+      "destination": "/tmp/generate-server-keys.sh"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /tmp/docker.config /etc/default/docker",
+        "sudo mv /tmp/generate-server-keys.sh /usr/local/bin/generate-server-keys.sh",
+        "sudo chmod a+x /usr/local/bin/generate-server-keys.sh",
+        "sudo mkdir -p /etc/docker",
+        "sudo cp /tmp/certs/* /etc/docker/"
+      ]
+    }
+
+  ]
+}
