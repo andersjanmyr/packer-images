@@ -46,7 +46,8 @@
         "sudo mv /tmp/scripts/*.sh /usr/local/bin",
         "sudo chmod a+x /usr/local/bin/*.sh",
         "sudo mkdir -p /etc/docker",
-        "sudo cp /tmp/certs/* /etc/docker/"
+        "sudo mv /tmp/certs/* /etc/docker/",
+        "sudo rm -f /etc/docker/key.json"
       ]
     }
 
