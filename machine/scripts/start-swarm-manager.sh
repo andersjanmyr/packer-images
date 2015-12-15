@@ -4,7 +4,7 @@ set -o errexit
 token=$1
 
 sudo docker run -d \
-  -p 3376:2376 \
+  -p 3376:2375 \
   -v /etc/docker:/etc/docker \
   --restart=always \
   --name swarm-manager \

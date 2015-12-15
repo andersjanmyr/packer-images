@@ -8,6 +8,7 @@
       "ssh_username": "ubuntu",
       "ami_name": "docker ubuntu {{timestamp}}",
       "tags": {
+        "Name": "docker ubuntu {{timestamp}}",
         "OS_Version": "Ubuntu 14.04 LTS",
         "Release": "Ubuntu 14.04 LTS"
       }
