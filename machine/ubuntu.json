@@ -35,15 +35,15 @@
     },
     {
       "type": "file",
-      "source": "generate-server-keys.sh",
-      "destination": "/tmp/generate-server-keys.sh"
+      "source": "scripts",
+      "destination": "/tmp"
     },
     {
       "type": "shell",
       "inline": [
         "sudo mv /tmp/docker.config /etc/default/docker",
-        "sudo mv /tmp/generate-server-keys.sh /usr/local/bin/generate-server-keys.sh",
-        "sudo chmod a+x /usr/local/bin/generate-server-keys.sh",
+        "sudo mv /tmp/scripts/*.sh /usr/local/bin/generate-server-keys.sh",
+        "sudo chmod a+x /usr/local/bin/*.sh",
         "sudo mkdir -p /etc/docker",
         "sudo cp /tmp/certs/* /etc/docker/"
       ]
