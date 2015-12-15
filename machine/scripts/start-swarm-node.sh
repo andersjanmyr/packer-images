@@ -11,11 +11,8 @@ sudo docker run -d \
   --restart=always \
   --name swarm-agent \
   swarm:latest \
-  join  \
+  join \
   --advertise ${ip}:2376 \
-  --tlsverify --tlscacert=/etc/docker/ca.pem \
-  --tlscert=/etc/docker/cert.pem \
-  --tlskey=/etc/docker/key.pem \
   $token
 
 

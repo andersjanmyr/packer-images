@@ -13,5 +13,5 @@ sudo docker run -d \
   --tlsverify --tlscacert=/etc/docker/ca.pem \
   --tlscert=/etc/docker/cert.pem \
   --tlskey=/etc/docker/key.pem \
-  $token 
+  $token
 
