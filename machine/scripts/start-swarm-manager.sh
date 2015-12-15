@@ -11,7 +11,7 @@ sudo docker run -d \
   swarm:latest \
   manage \
   --tlsverify --tlscacert=/etc/docker/ca.pem \
-  --tlscert=/etc/docker/cert.pem \
-  --tlskey=/etc/docker/key.pem \
+  --tlscert=/etc/docker/swarm-cert.pem \
+  --tlskey=/etc/docker/swarm-key.pem \
   $token
 

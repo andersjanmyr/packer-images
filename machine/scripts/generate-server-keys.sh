@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 public_ip=$(curl 169.254.169.254/2014-11-05/meta-data/public-ipv4)
 private_ip=$(curl 169.254.169.254/2014-11-05/meta-data/local-ipv4)
 public_hostname=$(curl 169.254.169.254/2014-11-05/meta-data/public-hostname)
@@ -15,4 +14,12 @@ openssl x509 -req -days 365 -sha256 -in server.csr \
 
 chmod 0400 server-key.pem
 chmod 0444 server-cert.pem
-rm server.csr extfile.cnf
+
+openssl genrsa -out swarm-key.pem 4096
+openssl req -passin file:ca-password.txt -subj "/CN=$public_hostname" -new -key swarm-key.pem -out swarm-client.csr
+echo 'extendedKeyUsage = clientAuth,serverAuth' > extfile.cnf
+openssl x509 -passin file:ca-password.txt -req -days 365 -in swarm-client.csr -CA ca.pem -CAkey ca-key.pem -out swarm-cert.pem -extfile extfile.cnf
+
+chmod 0400 server-key.pem swarm-key.pem
+chmod 0444 server-cert.pem swarm-cert.pem
+rm *.csr extfile.cnf
