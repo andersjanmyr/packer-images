@@ -1,5 +1,8 @@
 #!/bin/bash
-(cd /etc/docker && /usr/local/bin/generate-server-keys.sh)
+(cd /etc/docker && \
+  /usr/local/bin/generate-server-keys.sh && \
+  /usr/local/bin/remove-ca-password.sh
+  )
 sudo service docker stop
 rm -f /etc/docker/key.json
 sudo service docker start

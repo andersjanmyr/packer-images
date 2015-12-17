@@ -1,7 +1,7 @@
 #!/bin/bash
 (cd /etc/docker && \
   /usr/local/bin/generate-server-keys.sh && \
-  /usr/local/bin/generate-swarm-keys.sh && \
+  /usr/local/bin/generate-client-keys.sh && \
   /usr/local/bin/remove-ca-password.sh
   )
 sudo service docker restart
